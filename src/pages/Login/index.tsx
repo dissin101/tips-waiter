@@ -1,8 +1,11 @@
-import React from 'react';
-import {Button, Grid, Paper, TextField, Typography} from "@mui/material";
+import React, {useEffect} from 'react';
+import {Button, CircularProgress, Grid, Paper, TextField, Typography} from "@mui/material";
 import {StyledLoginBox, StyledLoginNavLink} from "./index.styles";
 import {useFormik} from "formik";
-import {useLoginMutation} from "../../services/login";
+import {useAuthMutation} from "../../services/auth.service";
+import Loader from "../../components/Loader";
+import {useAppDispatch} from "../../store/hooks";
+import {loginUser} from "../../store/auth/auth.slice";
 
 /**
  * Страница авторизации пользователя
@@ -10,7 +13,8 @@ import {useLoginMutation} from "../../services/login";
  */
 const Login = () => {
 
-    const [login, {isLoading, isError, isSuccess}] = useLoginMutation();
+    const dispatch = useAppDispatch();
+    const [auth, {isLoading, error, data}] = useAuthMutation();
 
     /*todo Add Snackbar*/
 
@@ -20,23 +24,49 @@ const Login = () => {
             password: ''
         },
         onSubmit: (values) => {
-            login(values)
+            auth(values)
         }
     });
 
-    console.log(isLoading, isError, isSuccess)
+    useEffect(() => {
+
+    }, [error])
+
+    useEffect(() => {
+        if (data){
+            dispatch(loginUser(data));
+        }
+    }, [data])
+
+    console.log(error)
+
+    console.log(data)
 
     return (
         <form onSubmit={formik.handleSubmit}>
             <StyledLoginBox>
                 <Grid padding={2} justifyContent={'center'} container maxWidth={'sm'}>
-                    <Grid item xs={12} sm={8} display={'flex'} flexDirection={'column'} textAlign={'center'}>
-                        <Typography variant={'h6'}>
-                            Авторизация
-                        </Typography>
-                        <Typography variant={'h4'}>
-                            WooThanks!
-                        </Typography>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={8}
+                        display={'flex'}
+                        minHeight={'70px'}
+                        flexDirection={'column'}
+                        textAlign={'center'}
+                        alignItems={'center'}
+                    >
+                        {isLoading ?
+                            <Loader/> :
+                            <>
+                                <Typography variant={'h6'}>
+                                    Авторизация
+                                </Typography>
+                                <Typography variant={'h4'}>
+                                    WooThanks!
+                                </Typography>
+                            </>
+                        }
                     </Grid>
                     <Grid item xs={12} sm={8} marginTop={4} marginBottom={2}>
                         <TextField
@@ -56,6 +86,7 @@ const Login = () => {
                             onChange={formik.handleChange}
                             value={formik.values.password}
                             type={'password'}
+                            disabled={isLoading}
                             fullWidth
                         />
                     </Grid>
@@ -65,6 +96,7 @@ const Login = () => {
                             color={'primary'}
                             size={'large'}
                             type={'submit'}
+                            disabled={isLoading}
                             fullWidth
                         >Войти</Button>
                     </Grid>
