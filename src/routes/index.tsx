@@ -7,6 +7,7 @@ import {
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import {useAppSelector} from "../store/hooks";
+import Cabinet from "../pages/Cabinet";
 
 const MainRouter = () => {
 
@@ -16,24 +17,17 @@ const MainRouter = () => {
 
     return (
         <Router>
-            {!isAuth ?
-                <Switch>
-                    {/*<Redirect to={'/login'}/>*/}
-                    <Route path={'/login'}>
-                        <Login/>
-                    </Route>
-                    <Route path={'/registration'}>
-                        <Registration/>
-                    </Route>
-                </Switch>
-                :
-                <Switch>
-                    {/*<Redirect to={'/cabinet'}/>*/}
-                    <Route path={'/cabinet'}>
-                        Cabinet
-                    </Route>
-                </Switch>
-            }
+            <Switch>
+                <Route path={'/login'}>
+                    <Login/>
+                </Route>
+                <Route path={'/registration'}>
+                    <Registration/>
+                </Route>
+                <Route path={'/cabinet'}>
+                    <Cabinet/>
+                </Route>
+            </Switch>
         </Router>
     );
 };
