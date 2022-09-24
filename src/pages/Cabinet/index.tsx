@@ -21,7 +21,7 @@ const Cabinet = () => {
 
     return (
         <>
-            {/*<Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton
@@ -49,7 +49,7 @@ const Cabinet = () => {
                 >
                     {list()}
                 </Drawer>
-            </React.Fragment>*/}
+            </React.Fragment>
         </>
     );
 };
