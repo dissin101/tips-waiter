@@ -6,6 +6,7 @@ import {useAuthMutation} from "../../services/auth.service";
 import Loader from "../../components/Loader";
 import {useAppDispatch} from "../../store/hooks";
 import {loginUser} from "../../store/auth/auth.slice";
+import {useHistory} from "react-router-dom";
 
 /**
  * Страница авторизации пользователя
@@ -14,9 +15,8 @@ import {loginUser} from "../../store/auth/auth.slice";
 const Login = () => {
 
     const dispatch = useAppDispatch();
+    const history = useHistory();
     const [auth, {isLoading, error, data}] = useAuthMutation();
-
-    /*todo Add Snackbar*/
 
     const formik = useFormik({
         initialValues: {
@@ -29,18 +29,18 @@ const Login = () => {
     });
 
     useEffect(() => {
-
+        if (error){
+            /*todo Add Snackbar*/
+            console.log(error)
+        }
     }, [error])
 
     useEffect(() => {
         if (data){
             dispatch(loginUser(data));
+            history.push('/cabinet');
         }
     }, [data])
-
-    console.log(error)
-
-    console.log(data)
 
     return (
         <form onSubmit={formik.handleSubmit}>
