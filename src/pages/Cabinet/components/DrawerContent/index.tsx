@@ -8,12 +8,31 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ListItemText from "@mui/material/ListItemText";
 import {DrawerType} from "./index.types";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 
 const DrawerContent: React.FC<DrawerType> = ({open, theme, handleDrawerClose}) => {
+    const primaryList = [
+        {
+            title: 'Профиль',
+            icon: <AccountCircleIcon/>,
+            path: '/profile'
+        },
+        {
+            title: 'Транзакции',
+            icon: <AccountBalanceWalletIcon/>,
+            path: '/transactions'
+        },
+        {
+            title: 'Мой QR-код',
+            icon: <QrCodeIcon/>,
+            path: '/qrcode'
+        },
+    ];
+
     return (
         <>
             <DrawerHeader>
@@ -23,8 +42,8 @@ const DrawerContent: React.FC<DrawerType> = ({open, theme, handleDrawerClose}) =
             </DrawerHeader>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                {primaryList.map(({title, icon, path}: any, index: number) => (
+                    <ListItem key={path + index} disablePadding sx={{ display: 'block' }}>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -39,14 +58,14 @@ const DrawerContent: React.FC<DrawerType> = ({open, theme, handleDrawerClose}) =
                                     justifyContent: 'center',
                                 }}
                             >
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {icon}
                             </ListItemIcon>
-                            <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                            <ListItemText primary={title} sx={{ opacity: open ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
                 ))}
             </List>
-            <Divider />
+            {/*<Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -70,7 +89,7 @@ const DrawerContent: React.FC<DrawerType> = ({open, theme, handleDrawerClose}) =
                         </ListItemButton>
                     </ListItem>
                 ))}
-            </List>
+            </List>*/}
         </>
     );
 };
