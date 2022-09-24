@@ -13,23 +13,25 @@ import {DrawerType} from "./index.types";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import QrCodeIcon from '@mui/icons-material/QrCode';
+import {useHistory} from "react-router-dom";
 
 const DrawerContent: React.FC<DrawerType> = ({open, theme, handleDrawerClose}) => {
+    const history = useHistory();
     const primaryList = [
         {
             title: 'Профиль',
             icon: <AccountCircleIcon/>,
-            path: '/profile'
+            path: '/cabinet/profile'
         },
         {
             title: 'Транзакции',
             icon: <AccountBalanceWalletIcon/>,
-            path: '/transactions'
+            path: '/cabinet/transactions'
         },
         {
             title: 'Мой QR-код',
             icon: <QrCodeIcon/>,
-            path: '/qrcode'
+            path: '/cabinet/qrcode'
         },
     ];
 
@@ -50,6 +52,7 @@ const DrawerContent: React.FC<DrawerType> = ({open, theme, handleDrawerClose}) =
                                 justifyContent: open ? 'initial' : 'center',
                                 px: 2.5,
                             }}
+                            onClick={() => history.push(path)}
                         >
                             <ListItemIcon
                                 sx={{

@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import {useAppSelector} from "../store/hooks";
 import Cabinet from "../pages/Cabinet";
+import Payment from "../pages/Payment";
 
 const MainRouter = () => {
 
@@ -26,6 +27,9 @@ const MainRouter = () => {
                 </Route>
                 <Route path={'/cabinet'}>
                     <Cabinet/>
+                </Route>
+                <Route path={'/payment'}>
+                    <Payment/>
                 </Route>
             </Switch>
         </Router>
