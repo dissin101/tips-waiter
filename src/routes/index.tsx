@@ -13,7 +13,6 @@ const MainRouter = () => {
     const {isAuth} = useAppSelector((state) => state.auth)
 
     /*todo Fix Routes*/
-    console.log(isAuth)
 
     return (
         <Router>
