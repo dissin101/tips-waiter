@@ -50,6 +50,15 @@ export const donateApi = createApi({
                 }
             }),
         }),
+        getBalance: builder.mutation({
+            query: ({token}) => ({
+                url: `balance`,
+                method: 'GET',
+                headers: {
+                    Authorization: token
+                }
+            }),
+        }),
     }),
 })
 
@@ -58,5 +67,6 @@ export const {
     usePseudoAuthMutation,
     useNewTransferMutation,
     usePayCardMutation,
-    usePaymentHistoryMutation
+    usePaymentHistoryMutation,
+    useGetBalanceMutation
 } = donateApi;
