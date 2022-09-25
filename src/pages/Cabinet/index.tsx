@@ -24,7 +24,11 @@ const Cabinet = () => {
 
     useEffect(() => {
         const separatedLocation = location.pathname.split('/');
-        setDirectory(separatedLocation[separatedLocation.length - 1])
+        if (separatedLocation.length === 2){
+            setDirectory('transactions');
+        } else {
+            setDirectory(separatedLocation[separatedLocation.length - 1]);
+        }
     }, [location]);
 
     const Content = () => {
