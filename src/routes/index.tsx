@@ -14,8 +14,6 @@ const MainRouter = () => {
 
     const {isAuth} = useAppSelector((state) => state.auth)
 
-    /*todo Fix Routes*/
-
     return (
         <Router>
             <Switch>
@@ -25,12 +23,15 @@ const MainRouter = () => {
                 <Route path={'/registration'}>
                     <Registration/>
                 </Route>
+                {isAuth &&
                 <Route path={'/cabinet'}>
-                    <Cabinet/>
+                  <Cabinet/>
                 </Route>
+                }
                 <Route path={'/payment'}>
                     <Payment/>
                 </Route>
+                <Redirect from={"/"} to={isAuth ? '/cabinet' : '/login'}/>
             </Switch>
         </Router>
     );
