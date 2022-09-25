@@ -15,6 +15,15 @@ const Transactions = () => {
 
     console.log(isLoading, error, data)
 
+    const OPERATION_STATUSES = {
+        "11": "Новая",
+        "12": "На рассмотрении",
+        "14": "Проведена",
+        "17": "Отменена",
+        "19": "Ожидает проведения",
+        "20": "Удалена"
+    }
+
     return (
         <>
             {isLoading ?
@@ -31,7 +40,7 @@ const Transactions = () => {
                                         <TableCell align="right">Сумма</TableCell>
                                         <TableCell align="right">Название</TableCell>
                                         <TableCell align="right">Номер плательщика</TableCell>
-                                        <TableCell align="right">Статус платежа</TableCell>
+                                        <TableCell align="right">Статус операции</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -41,7 +50,8 @@ const Transactions = () => {
                                             <TableCell align="right">{row.amount}</TableCell>
                                             <TableCell align="right">{row.title}</TableCell>
                                             <TableCell align="right">{row.account}</TableCell>
-                                            <TableCell align="right">{row.status}</TableCell>
+                                            {/*@ts-ignore*/}
+                                            <TableCell align="right">{OPERATION_STATUSES[row.status]}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
