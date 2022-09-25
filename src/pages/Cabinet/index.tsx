@@ -7,6 +7,7 @@ import DrawerContent from "./components/DrawerContent";
 import Header from "./components/Header";
 import {useHistory, useLocation} from "react-router-dom";
 import QRPage from "./pages/QR";
+import Transactions from "./pages/Transactions";
 
 const Cabinet = () => {
     const theme = useTheme();
@@ -35,12 +36,11 @@ const Cabinet = () => {
         switch (directory){
             case 'profile':
                 return <div>Profile</div>
-            case 'transactions':
-                return <div>Transactions</div>
             case 'qrcode':
                 return <QRPage/>
+            case 'transactions':
             default:
-                return <div>Default</div>
+                return <Transactions/>
         }
     }
 

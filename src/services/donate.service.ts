@@ -41,7 +41,22 @@ export const donateApi = createApi({
                 body
             }),
         }),
+        paymentHistory: builder.mutation({
+            query: ({token}) => ({
+                url: `history`,
+                method: 'GET',
+                headers: {
+                    Authorization: token
+                }
+            }),
+        }),
     }),
 })
 
-export const {useServiceMutation, usePseudoAuthMutation, useNewTransferMutation, usePayCardMutation} = donateApi;
+export const {
+    useServiceMutation,
+    usePseudoAuthMutation,
+    useNewTransferMutation,
+    usePayCardMutation,
+    usePaymentHistoryMutation
+} = donateApi;
