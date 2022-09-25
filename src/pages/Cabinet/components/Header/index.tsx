@@ -16,8 +16,6 @@ const Header: React.FC<HeaderType> = ({open, handleDrawerOpen}) => {
     const {token} = useAppSelector((state) => state.auth)
     const [getBalance, {isLoading, error, data}] = useGetBalanceMutation()
 
-    console.log(isLoading, error, data)
-
     useEffect(() => {
         getBalance({token: token.split(' ')[1]});
     }, []);

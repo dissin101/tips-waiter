@@ -59,6 +59,16 @@ export const donateApi = createApi({
                 }
             }),
         }),
+        transferToCard : builder.mutation({
+            query: ({token, body}) => ({
+                url: `payment/transfer-to-card`,
+                method: 'POST',
+                headers: {
+                    Authorization: token
+                },
+                body
+            }),
+        }),
     }),
 })
 
@@ -68,5 +78,6 @@ export const {
     useNewTransferMutation,
     usePayCardMutation,
     usePaymentHistoryMutation,
-    useGetBalanceMutation
+    useGetBalanceMutation,
+    useTransferToCardMutation
 } = donateApi;

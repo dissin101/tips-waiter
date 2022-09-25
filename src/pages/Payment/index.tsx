@@ -23,10 +23,6 @@ const Payment = () => {
     const [newTransfer, {isLoading: isNewTransferLoading, error: newTransferError, data: newTransferData}] = useNewTransferMutation();
     const [payCard, {isLoading: isPayCardLoading, error: payCardError, data: payCardData }] = usePayCardMutation();
 
-    //console.log(isServiceLoading, serviceError, serviceData)
-    //console.log(isPseudoAuthLoading, pseudoAuthError, pseudoAuthData)
-    console.log(isPayCardLoading, payCardError, payCardData)
-
     const formik = useFormik({
         initialValues: {
             amount: '',
