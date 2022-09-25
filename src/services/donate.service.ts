@@ -69,6 +69,16 @@ export const donateApi = createApi({
                 body
             }),
         }),
+        identification: builder.mutation({
+            query: ({token, body}) => ({
+                url: `user/nominate-subject`,
+                method: 'POST',
+                headers: {
+                    Authorization: token
+                },
+                body
+            }),
+        }),
     }),
 })
 
@@ -79,5 +89,6 @@ export const {
     usePayCardMutation,
     usePaymentHistoryMutation,
     useGetBalanceMutation,
-    useTransferToCardMutation
+    useTransferToCardMutation,
+    useIdentificationMutation
 } = donateApi;

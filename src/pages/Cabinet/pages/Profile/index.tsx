@@ -1,8 +1,13 @@
 import React, {useEffect} from 'react';
 import {Box, Button, Divider, Paper, TextField, Typography} from "@mui/material";
 import {useAppSelector} from "../../../../store/hooks";
-import {useGetBalanceMutation, useTransferToCardMutation} from "../../../../services/donate.service";
+import {
+    useGetBalanceMutation,
+    useIdentificationMutation,
+    useTransferToCardMutation
+} from "../../../../services/donate.service";
 import {useFormik} from "formik";
+import Loader from "../../../../components/Loader";
 
 const Profile = () => {
 
@@ -12,6 +17,10 @@ const Profile = () => {
         isLoading: isLoadingTransferToCard,
         error: transferToCardError,
         data: transferToCardData}] = useTransferToCardMutation();
+    const [identification, {
+        isLoading: isIdentificationLoading,
+        error: identificationError,
+        data: identificationData}] = useIdentificationMutation()
 
     useEffect(() => {
         getBalance({token: token.split(' ')[1]});
@@ -21,7 +30,13 @@ const Profile = () => {
         if (transferToCardData){
             window.location.href = transferToCardData.frame_url;
         }
-    }, [transferToCardData])
+    }, [transferToCardData]);
+
+    useEffect(() => {
+        if (identificationData){
+            window.location.href = identificationData.url;
+        }
+    }, [identificationData])
 
     const formik = useFormik({
         initialValues: {
@@ -32,19 +47,28 @@ const Profile = () => {
                 const form = {
                     token: token.split(' ')[1],
                     body: {
-                        amount
+                        amount,
+                        mobile_scripts: true
                     }
                 }
                 transferToCard(form);
             } else {
-                /*Verify*/
+                const form = {
+                    token: token.split(' ')[1],
+                    body: {
+                        phone: login
+                    }
+                };
+
+                identification(form);
             }
         }
     });
 
     return (
-        <Box display={'flex'} marginTop={2} justifyContent={'center'}>
-            <Paper sx={{minWidth: '320px', maxWidth: '320px'}}>
+        <Box display={'flex'} flexDirection={'column'} marginTop={2} justifyContent={'center'} alignItems={'center'}>
+            {(isLoading || isLoadingTransferToCard || isIdentificationLoading) && <Loader/>}
+            <Paper sx={{minWidth: '320px', maxWidth: '320px', marginTop: 2}}>
                 <Box sx={{padding: '16px'}}>
                     <Typography fontSize={'16px'} sx={{fontWeight: 800}}>
                         Информация о пользователе
@@ -93,8 +117,19 @@ const Profile = () => {
                                         disabled={isLoadingTransferToCard}
                                         type={'submit'}>Вывести</Button>
                                 </Box> :
-                                <>
-                                </>
+                                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
+                                    <Typography marginTop={2}>
+                                        Для вывода средств необходимо пройти идентификацию
+                                    </Typography>
+                                    <Button
+                                        variant={'contained'}
+                                        color={'success'}
+                                        type={'submit'}
+                                        sx={{marginTop: 2}}
+                                    >
+                                        Идентифицироваться
+                                    </Button>
+                                </Box>
                         }
                     </form>
                 </Box>
