@@ -4,7 +4,8 @@ import {authInitialState} from "./auth.initialState";
 interface IAuthPayload {
     login: string,
     email: string,
-    token: string
+    token: string,
+    identified: number
 }
 
 export const authSlice = createSlice({
@@ -15,7 +16,8 @@ export const authSlice = createSlice({
             state.isAuth = true;
             state.login = payload.login;
             state.email = payload.email;
-            state.token = payload.token
+            state.token = payload.token;
+            state.identified = payload.identified;
         }
     }
 })

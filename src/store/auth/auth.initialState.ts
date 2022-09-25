@@ -3,11 +3,13 @@ interface AuthInitialState {
     login: string,
     token: string,
     email: string
+    identified: number
 }
 
 export const authInitialState: AuthInitialState = {
     isAuth: false,
     login: '',
     token: '',
-    email: ''
+    email: '',
+    identified: 0
 }
