@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import Loader from "../../../../components/Loader";
 import {useHistory} from "react-router-dom";
+import moment from "moment";
 
 const Transactions = () => {
 
@@ -58,6 +59,7 @@ const Transactions = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>ID платежа</TableCell>
+                                        <TableCell>Дата создания</TableCell>
                                         <TableCell align="right">Сумма</TableCell>
                                         <TableCell align="right">Название</TableCell>
                                         <TableCell align="right">Номер плательщика</TableCell>
@@ -68,6 +70,7 @@ const Transactions = () => {
                                     {data.map((row: any) => (
                                         <TableRow key={row.id}>
                                             <TableCell>{row.id}</TableCell>
+                                            <TableCell align="right">{moment(row.donned_at).format('DD.MM.YYYY')}</TableCell>
                                             <TableCell align="right">{row.amount}</TableCell>
                                             <TableCell align="right">{row.title}</TableCell>
                                             <TableCell align="right">{row.account}</TableCell>
